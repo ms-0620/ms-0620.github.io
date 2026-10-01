@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>指示</title>
+<style>
+:root{--bg:#fafaf7;--fg:#222;--sub:#888;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1b1a;--fg:#eee;--sub:#999}}
+:root[data-theme="dark"]{--bg:#1b1b1a;--fg:#eee;--sub:#999}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center}
+main{padding:24px;max-width:600px}
+.no{color:var(--sub);font-size:.9rem;margin-bottom:12px}
+#msg{font-size:1.8rem;line-height:1.7;font-weight:bold}
+</style>
+</head>
+<body>
+<main>
+<div class="no" id="no"></div>
+<div id="msg"></div>
+</main>
+<script>
+// 指示の一覧。QRコードのURL末尾に #1 #2 #3 ... を付けると、その番号の指示が表示されます。
+var instructions = {
+  "1": "ここに1つ目の指示を入れてください。例:入口の左にある赤い箱を開けなさい。",
+  "2": "ここに2つ目の指示を入れてください。例:時計の針が指す数字を3回数えなさい。",
+  "3": "ここに3つ目の指示を入れてください。例:出口の扉の前で、合言葉を唱えなさい。"
+};
+function show(){
+  var id = (location.hash || "").replace("#","");
+  var m = instructions[id];
+  document.getElementById("no").textContent = m ? "指示 " + id : "";
+  document.getElementById("msg").textContent = m || "QRコードを読み取ってください。";
+}
+show();
+window.addEventListener("hashchange", show);
+</script>
+</body>
+</html>
